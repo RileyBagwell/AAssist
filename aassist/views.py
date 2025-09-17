@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.http import Http404
@@ -6,10 +6,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.db.models import Q, Sum
 from django.utils import timezone
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.views.decorators.csrf import csrf_protect
 import json
 from datetime import datetime, timedelta
 
-from .models import Question, Drink, DrinkConsumption
+from .models import Drink, DrinkConsumption
 
 
 def index(request):
@@ -20,10 +25,12 @@ def info(request):
     return render(request, "aassist/info.html")
 
 
+@login_required
 def tracker(request):
-    # Get recent consumption history (last 30 days)
+    # Get recent consumption history (last 30 days) for the current user
     thirty_days_ago = timezone.now() - timedelta(days=30)
     recent_consumption = DrinkConsumption.objects.filter(
+        user=request.user,
         consumed_at__gte=thirty_days_ago
     ).order_by('-consumed_at')[:50]
     
@@ -82,6 +89,7 @@ def search_drinks(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
+@login_required
 def add_consumption(request):
     """Add a drink consumption record"""
     try:
@@ -96,6 +104,7 @@ def add_consumption(request):
         drink = get_object_or_404(Drink, id=drink_id)
         
         consumption = DrinkConsumption.objects.create(
+            user=request.user,
             drink=drink,
             quantity=quantity,
             notes=notes
@@ -120,12 +129,51 @@ def add_consumption(request):
 
 @csrf_exempt
 @require_http_methods(["DELETE"])
+@login_required
 def delete_consumption(request, consumption_id):
     """Delete a drink consumption record"""
     try:
-        consumption = get_object_or_404(DrinkConsumption, id=consumption_id)
+        consumption = get_object_or_404(DrinkConsumption, id=consumption_id, user=request.user)
         consumption.delete()
         return JsonResponse({'success': True})
     
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+
+
+# Authentication views
+def register_view(request):
+    """User registration view"""
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Account created for {username}!')
+            login(request, user)
+            return redirect('tracker')
+    else:
+        form = UserCreationForm()
+    return render(request, 'aassist/register.html', {'form': form})
+
+
+def login_view(request):
+    """User login view"""
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'Welcome back, {username}!')
+            return redirect('tracker')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    return render(request, 'aassist/login.html')
+
+
+def logout_view(request):
+    """User logout view"""
+    logout(request)
+    messages.info(request, 'You have been logged out.')
+    return redirect('index')

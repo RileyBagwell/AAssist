@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8" />
+    <title>AAssist | Info</title>
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{% static 'aassist/style.css' %}">
+</head>
+
+<body>
+    {% include "includes/navbar.html" %}
+    <main class="container my-4">
+        <header class="mb-4">
+            <h1 class="h2">Alcohol information and safety</h1>
+            <p class="text-muted mb-0">Educational content only. Not medical advice.</p>
+        </header>
+
+        <section class="mb-5">
+            <h2 class="h4">How alcohol works</h2>
+            <p>
+                Alcohol (ethanol) is a central nervous system depressant. After drinking, it is absorbed primarily in
+                the small intestine and to a lesser extent in the stomach, entering the bloodstream and traveling to the
+                brain. Its effects scale with blood alcohol concentration (BAC), typically measured as grams of alcohol
+                per deciliter of blood.
+            </p>
+            <ul>
+                <li><strong>Onset</strong>: Most effects begin within 10–30 minutes, faster on an empty stomach.</li>
+                <li><strong>Metabolism</strong>: The liver breaks down most alcohol via alcohol dehydrogenase. Typical
+                    elimination is about 0.015% BAC per hour (varies by person).</li>
+                <li><strong>Factors</strong>: Body mass, sex, genetics, food, medications, and drinking pace all affect
+                    BAC and impairment.</li>
+                <li><strong>Impairment</strong>: Even low BAC can impair judgment, coordination, and reaction time.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4">What is a standard drink?</h2>
+            <p>
+                A standard drink is a way to compare different beverages by their pure alcohol content. In the U.S., one
+                standard drink contains about <strong>14 grams (0.6 fl oz) of pure alcohol</strong>.
+            </p>
+            <div class="table-responsive">
+                <table class="table table-sm table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Beverage</th>
+                            <th>Typical serving</th>
+                            <th>Approx. ABV</th>
+                            <th>Standard drinks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Beer</td>
+                            <td>12 oz (355 mL)</td>
+                            <td>5%</td>
+                            <td>~1</td>
+                        </tr>
+                        <tr>
+                            <td>Wine</td>
+                            <td>5 oz (148 mL)</td>
+                            <td>12%</td>
+                            <td>~1</td>
+                        </tr>
+                        <tr>
+                            <td>Distilled spirits</td>
+                            <td>1.5 oz (44 mL)</td>
+                            <td>40% (80 proof)</td>
+                            <td>~1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="small text-muted mb-0">
+                ABV = alcohol by volume. Craft beers, fortified wines, and cocktails can contain more than one standard
+                drink per serving.
+            </p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4">Estimating BAC</h2>
+            <p>
+                BAC rises as drinks are consumed and falls as the body metabolizes alcohol. Simple estimators (like the
+                Widmark formula) can give ballpark figures, but real BAC varies widely. The safest assumption is that you
+                are impaired if you have been drinking.
+            </p>
+            <ul>
+                <li><strong>Time</strong> lowers BAC slowly: roughly 0.015% per hour after drinking stops.</li>
+                <li><strong>Coffee, cold showers, exercise</strong> do not speed up metabolism.</li>
+                <li><strong>Never drive</strong> after drinking. Use a designated driver or rideshare.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4">Low-risk drinking guidelines</h2>
+            <ul>
+                <li>Set a limit before you start and pace with non-alcoholic drinks.</li>
+                <li>Eat before and during drinking; avoid drinking on an empty stomach.</li>
+                <li>Avoid mixing alcohol with sedatives, opioids, benzodiazepines, or other depressants.</li>
+                <li>Consider alcohol-free days each week; watch for increasing tolerance or reliance.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4">Safety tips</h2>
+            <ul>
+                <li>Know what you are drinking; measure spirits instead of free-pouring.</li>
+                <li>Alternate alcohol with water; aim for one glass of water per drink.</li>
+                <li>Look out for friends; do not leave anyone who is very intoxicated alone.</li>
+                <li>Store alcohol securely away from children and pets.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4">Alcohol poisoning: warning signs</h2>
+            <p>If you see these signs, call emergency services immediately:</p>
+            <ul>
+                <li>Unconsciousness or cannot be awakened</li>
+                <li>Slow, irregular, or stopped breathing; bluish, pale, or clammy skin</li>
+                <li>Seizures, vomiting while unconscious, or inability to stand</li>
+                <li>Very slow heart rate, severe confusion, or hypothermia</li>
+            </ul>
+            <p class="small text-muted mb-0">Do not leave the person alone; place on their side to reduce choking risk.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4">Interactions and special considerations</h2>
+            <ul>
+                <li>Alcohol can interact with many medications (e.g., painkillers, sleep aids, antidepressants).</li>
+                <li>Pregnancy: no known safe amount. If pregnant or trying to conceive, avoid alcohol.</li>
+                <li>Health conditions: liver disease, pancreatitis, heart conditions, or mental health concerns may be
+                    worsened by alcohol. Consult a clinician.</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4">Need help?</h2>
+            <ul>
+                <li><strong>Emergency</strong>: Call local emergency number if someone is in danger.</li>
+                <li><strong>Support</strong>: Talk to your primary care clinician or local support services.</li>
+            </ul>
+            <p class="small text-muted mb-0">Resources vary by location; check your local health department for services.</p>
+        </section>
+
+        <footer class="border-top pt-3">
+            <p class="small text-muted mb-0">This content is for informational purposes only and is not a substitute for
+                professional medical advice, diagnosis, or treatment.</p>
+        </footer>
+    </main>
+</body>
+</html>

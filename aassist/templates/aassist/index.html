@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8"/>
+    <title>AAssist | Your Personal Drink Tracker</title>
+    {% load static %}
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'aassist/style.css' %}">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            margin-top: 80px;
+        }
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .stats-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        .btn-custom {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary-custom {
+            background: #28a745;
+            border: none;
+            color: white;
+        }
+        .btn-primary-custom:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+        .btn-outline-custom {
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+        }
+        .btn-outline-custom:hover {
+            background: white;
+            color: #667eea;
+        }
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .testimonial-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .testimonial-author {
+            font-weight: bold;
+            color: #667eea;
+        }
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+        }
+        .benefit-list li {
+            padding: 10px 0;
+            font-size: 1.1rem;
+        }
+        .benefit-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    {% include "includes/navbar.html" %}
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">🍺 AAssist</h1>
+                    <h2 class="h3 mb-4">Your Personal Drink Tracker</h2>
+                    <p class="lead mb-4">
+                        Track your alcohol consumption, monitor your health, and make informed decisions about your drinking habits. 
+                        AAssist helps you stay aware and in control.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'tracker' %}" class="btn btn-primary-custom btn-custom">
+                                Go to My Tracker
+                            </a>
+                        {% else %}
+                            <a href="{% url 'register' %}" class="btn btn-primary-custom btn-custom">
+                                Get Started Free
+                            </a>
+                            <a href="{% url 'login' %}" class="btn btn-outline-custom btn-custom">
+                                Sign In
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="feature-card" style="background: rgba(255,255,255,0.95); color: #333;">
+                        <div class="feature-icon">📊</div>
+                        <h4 style="color: #333;">Real-time Tracking</h4>
+                        <p style="color: #666;">Monitor your alcohol units, calories, and consumption patterns with detailed analytics.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="display-5 fw-bold mb-3">Why Choose AAssist?</h2>
+                    <p class="lead text-muted">Comprehensive tools to help you track and understand your drinking habits</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">🔍</div>
+                        <h4>Smart Search</h4>
+                        <p>Search through hundreds of drinks by name, category, or description. Find exactly what you're looking for instantly.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">📱</div>
+                        <h4>Easy to Use</h4>
+                        <p>Simple, intuitive interface that makes tracking your drinks effortless. Add drinks with just a few clicks.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">🔒</div>
+                        <h4>Private & Secure</h4>
+                        <p>Your data is completely private and secure. Only you can see your personal drinking history and statistics.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">📈</div>
+                        <h4>Detailed Analytics</h4>
+                        <p>Track alcohol units, calories, and consumption patterns over time with comprehensive statistics.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">🍷</div>
+                        <h4>Comprehensive Database</h4>
+                        <p>Extensive database of beers, wines, spirits, and cocktails with accurate nutritional information.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">📝</div>
+                        <h4>Personal Notes</h4>
+                        <p>Add personal notes to your drink entries to remember special occasions or preferences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="display-5 fw-bold mb-3">Track Everything</h2>
+                    <p class="lead text-muted">Monitor your drinking habits with detailed metrics</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">18+</div>
+                        <h5>Drink Categories</h5>
+                        <p class="text-muted">Beers, wines, spirits, and cocktails</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">∞</div>
+                        <h5>Drinks Tracked</h5>
+                        <p class="text-muted">Unlimited drink entries</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">30</div>
+                        <h5>Day History</h5>
+                        <p class="text-muted">Track your last 30 days</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <h5>Private</h5>
+                        <p class="text-muted">Your data stays secure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">Take Control of Your Health</h2>
+                    <p class="lead mb-4">
+                        Understanding your drinking patterns is the first step toward making healthier choices. 
+                        AAssist provides the insights you need to make informed decisions.
+                    </p>
+                    <ul class="benefit-list">
+                        <li>Track alcohol units according to health guidelines</li>
+                        <li>Monitor calorie intake from alcoholic beverages</li>
+                        <li>Identify patterns in your drinking habits</li>
+                        <li>Set personal goals and track progress</li>
+                        <li>Access your data anytime, anywhere</li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="feature-card">
+                        <div class="feature-icon text-center">💡</div>
+                        <h4 class="text-center">Health Guidelines</h4>
+                        <p class="text-center">
+                            Track your consumption against recommended daily limits. 
+                            Stay informed about your alcohol intake with accurate unit calculations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container text-center">
+            <h2 class="display-5 fw-bold mb-4">Ready to Start Tracking?</h2>
+            <p class="lead mb-5">
+                Join others who are taking control of their drinking habits with AAssist.
+            </p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'tracker' %}" class="btn btn-primary-custom btn-custom">
+                        Go to My Tracker
+                    </a>
+                    <a href="{% url 'info' %}" class="btn btn-outline-custom btn-custom">
+                        Learn More
+                    </a>
+                {% else %}
+                    <a href="{% url 'register' %}" class="btn btn-primary-custom btn-custom">
+                        Create Free Account
+                    </a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-custom btn-custom">
+                        Sign In
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>🍺 AAssist</h5>
+                    <p class="text-muted">Your personal drink tracking companion</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">&copy; 2025 AAssist. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

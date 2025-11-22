@@ -15,11 +15,11 @@
     
     <div class="tracker-container">
         <div class="container-fluid">
-            <h1 class="mb-4">🍺 Drink Tracker</h1>
+            <h1 class="mb-4">Drink Tracker</h1>
             
             {% if not user.is_authenticated %}
             <div class="alert alert-warning" role="alert">
-                <h4 class="alert-heading">🔒 Login Required</h4>
+                <h4 class="alert-heading">Login Required</h4>
                 <p>You need to be logged in to use the drink tracker. Please <a href="{% url 'login' %}" class="alert-link">login</a> or <a href="{% url 'register' %}" class="alert-link">create an account</a> to get started.</p>
             </div>
             {% else %}
@@ -48,7 +48,7 @@
 
             <!-- Search Section -->
             <div class="search-section">
-                <h3>🔍 Search & Add Drinks</h3>
+                <h3>Search & Add Drinks</h3>
                 <div class="row">
                     <div class="col-md-8">
                         <input type="text" id="drinkSearch" class="form-control" placeholder="Search for drinks by name, category, or description..." autocomplete="off">
@@ -65,7 +65,7 @@
             <!-- Recent Consumption -->
             <div class="row">
                 <div class="col-12">
-                    <h3>📊 Recent Consumption</h3>
+                    <h3>Recent Consumption</h3>
                     <div id="consumptionList">
                         {% for consumption in recent_consumption %}
                         <div class="consumption-item" data-consumption-id="{{ consumption.id }}">
